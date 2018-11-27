@@ -1,0 +1,68 @@
+//  Created by Mitch Merkowksy on 11/20/18.
+//  Copyright © 2018 Mitch Merkowsky. All rights reserved.
+import UIKit
+class ViewController: UIViewController {
+    @IBOutlet weak var GreetingText: UITextField!
+    @IBOutlet weak var theButton: UIButton!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var OutputGreeting: UILabel!
+    @IBOutlet weak var savedGreetings: UILabel!
+    var numGreetings = 0
+    var name: String = ""
+    var greeting: String = ""
+    var greetingArray: [String] = []
+    var recordedArray: [String] = []
+    var t: String = ""
+    
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        theButton.setTitleColor(UIColor.red, for: UIControlState.normal)}
+    @IBAction func tappedGreet(_ sender: Any) {
+        if let greetingThing = GreetingText.text , let nameThing = nameField.text{
+            name = nameThing
+            greeting = greetingThing
+            
+            let entry = (greeting + ", " + name)
+            greetingArray.append(entry)
+        }
+        guard !greeting.isEmpty && !name.isEmpty else{
+            return
+        }
+        OutputGreeting.text = greetingArray.last
+    }
+    
+    
+    @IBAction func recordGreeting(){
+        
+        if let recordedArray = OutputGreeting.text{
+            
+            if numGreetings > 4{
+                
+                
+                if let pop = recordedArray.index(of: "\n"){
+                    savedGreetings.text?.removeSubrange(recordedArray.startIndex...pop)
+                }
+            }
+            
+            /*
+            if numGreetings > 5{
+                savedGreetings.text?.removeAll()
+            }
+            */
+ 
+ 
+            else{
+                
+                if numGreetings == 0{
+                    savedGreetings.text = ""
+                }
+                
+                numGreetings += 1
+                
+                
+                savedGreetings.text?.append("\n \(recordedArray)")
+            }
+        }
+    }
+    override func didReceiveMemoryWarning() {super.didReceiveMemoryWarning()}
+}
